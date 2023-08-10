@@ -6,6 +6,7 @@ namespace Dometrain.EFCore.API.Data;
 public class MoviesContext : DbContext
 {
     public DbSet<Movie> Movies => Set<Movie>();
+    public DbSet<Genre> Genres => Set<Genre>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
