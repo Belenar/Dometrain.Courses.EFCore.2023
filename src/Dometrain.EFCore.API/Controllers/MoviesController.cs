@@ -43,15 +43,10 @@ public class MoviesController : Controller
     [ProducesResponseType(typeof(List<MovieTitle>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllByYear([FromRoute] int year)
     {
-        var filteredMovies = _context.Movies
-            .Where(movie => movie.ReleaseDate.Year == year);
-
-        List<MovieTitle> filteredTitles = new();
-
-        foreach (var movie in filteredMovies)
-        {
-            filteredTitles.Add(new MovieTitle { Id = movie.Id, Title = movie.Title});
-        }
+        var filteredTitles = await _context.Movies
+            .Where(movie => movie.ReleaseDate.Year == year)
+            .Select(movie => new MovieTitle { Id = movie.Id, Title = movie.Title})
+            .ToListAsync();
 
         return Ok(filteredTitles);
     }
