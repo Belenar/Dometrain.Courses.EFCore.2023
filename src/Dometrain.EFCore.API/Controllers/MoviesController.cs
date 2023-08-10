@@ -40,18 +40,20 @@ public class MoviesController : Controller
     }
     
     [HttpGet("by-year/{year:int}")]
-    [ProducesResponseType(typeof(List<Movie>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<MovieTitle>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllByYear([FromRoute] int year)
     {
-        //var filteredMovies = _context.Movies
-        //    .Where(m => m.ReleaseDate.Year == year);
-        
-        var filteredMovies = 
-            from movie in _context.Movies
-            where movie.ReleaseDate.Year == year
-            select movie;
+        var filteredMovies = _context.Movies
+            .Where(movie => movie.ReleaseDate.Year == year);
 
-        return Ok(await filteredMovies.ToListAsync());
+        List<MovieTitle> filteredTitles = new();
+
+        foreach (var movie in filteredMovies)
+        {
+            filteredTitles.Add(new MovieTitle { Id = movie.Id, Title = movie.Title});
+        }
+
+        return Ok(filteredTitles);
     }
     
     [HttpPost]
