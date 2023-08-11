@@ -45,7 +45,7 @@ public class MoviesController : Controller
     {
         var filteredTitles = await _context.Movies
             .Where(movie => movie.ReleaseDate.Year == year)
-            .Select(movie => new MovieTitle { Id = movie.Id, Title = movie.Title})
+            .Select(movie => new MovieTitle { Id = movie.Identifier, Title = movie.Title})
             .ToListAsync();
 
         return Ok(filteredTitles);
@@ -63,7 +63,7 @@ public class MoviesController : Controller
         
         // movie has an ID
 
-        return CreatedAtAction(nameof(Get), new { id = movie.Id }, movie);
+        return CreatedAtAction(nameof(Get), new { id = movie.Identifier }, movie);
     }
     
     [HttpPut("{id:int}")]
