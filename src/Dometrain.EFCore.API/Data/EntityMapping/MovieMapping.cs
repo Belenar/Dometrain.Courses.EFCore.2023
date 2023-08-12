@@ -12,6 +12,7 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
     {
         builder
             .ToTable("Pictures")
+            .HasQueryFilter(movie => movie.ReleaseDate > new DateOnly(2000,1,1))
             .HasKey(movie => movie.Identifier);
 
         builder.Property(movie => movie.Title)
