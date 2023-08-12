@@ -32,7 +32,10 @@ public class MoviesController : Controller
         // Similar to FirstOrDefault, but throws if more than one match is found.
         // var movie = await _context.Movies.SingleOrDefaultAsync(m => m.Id == id);
         // Serves match from memory if already fetched, otherwise queries DB.
-        var movie = await _context.Movies.FindAsync(id);
+        //var movie = await _context.Movies.FindAsync(id);
+        
+        var movie = await _context.Movies
+            .SingleOrDefaultAsync(m => m.Identifier == id);
         
         return movie == null
             ? NotFound()
