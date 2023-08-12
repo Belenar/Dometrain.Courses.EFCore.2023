@@ -35,6 +35,7 @@ public class MoviesController : Controller
         //var movie = await _context.Movies.FindAsync(id);
         
         var movie = await _context.Movies
+            .Include(movie => movie.Genre)
             .SingleOrDefaultAsync(m => m.Identifier == id);
         
         return movie == null
