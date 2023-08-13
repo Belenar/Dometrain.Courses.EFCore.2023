@@ -40,42 +40,5 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         
         builder
             .OwnsMany(movie => movie.Actors);
-        
-        // Seed - data that needs to be created always
-        builder.HasData(new Movie
-        {
-            Identifier = 1,
-            Title = "Fight Club",
-            ReleaseDate = new DateOnly(1999, 9, 10),
-            Synopsis = "Ed Norton and Brad Pitt have a couple of fist fights with each other.",
-            AgeRating = AgeRating.Adolescent,
-            MainGenreId = 1
-        });
-
-        builder
-            .OwnsOne(movie => movie.Director)
-            .HasData(new
-            {
-                MovieIdentifier = 1,
-                FirstName = "David",
-                LastName = "Fincher"
-            });
-        
-        builder
-            .OwnsMany(movie => movie.Actors)
-            .HasData(new
-            {
-                MovieIdentifier = 1,
-                Id = 1,
-                FirstName = "Edward",
-                LastName = "Norton"
-            },
-            new
-            {
-                MovieIdentifier = 1,
-                Id = 2,
-                FirstName = "Brad",
-                LastName = "Pitt"
-            });
     }
 }
