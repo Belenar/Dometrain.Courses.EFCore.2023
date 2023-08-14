@@ -2,19 +2,38 @@ using Dometrain.EFCore.SimpleAPI.Controllers;
 using Dometrain.EFCore.SimpleAPI.Data;
 using Dometrain.EFCore.SimpleAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dometrain.EFCore.Tests.MemoryDatabase;
 
 public class SqlLiteTest : IDisposable
 {
+    private readonly SqliteConnection _connection;
+
     public SqlLiteTest()
     {
         // Test setup
+        _connection = new SqliteConnection("Filename=:memory:");
+        _connection.Open();
+
+        var context = CreateInMemoryContext();
+
+        context.Database.EnsureCreated();
+        
+        context.Genres.AddRange(
+            new Genre { Name = "Drama" },
+            new Genre { Name = "Action" },
+            new Genre { Name = "Comedy" }
+            );
+
+        context.SaveChanges();
     }
     
     public void Dispose()
     {
         // Test teardown
+        _connection.Dispose();
     }
     
     [Fact]
@@ -36,6 +55,12 @@ public class SqlLiteTest : IDisposable
 
     private MoviesContext CreateInMemoryContext()
     {
-        throw new NotImplementedException();
+        var contextOptions = new DbContextOptionsBuilder<MoviesContext>()
+            .UseSqlite(_connection)
+            .Options;
+
+        var context = new MoviesContext(contextOptions);
+
+        return context;
     }
 }
