@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Dometrain.EFCore.API.Data;
+using Dometrain.EFCore.SimpleAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,16 +15,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add a DbContext here
-builder.Services.AddDbContext<MoviesContext>();
+builder.Services.AddDbContext<MoviesContext>(opt =>
+{
+    opt.UseSqlServer("""
+        Data Source=localhost;
+        Initial Catalog=MoviesDB;
+        User Id=sa;
+        Password=MySaPassword123;
+        TrustServerCertificate=True;
+        """);
+});
 
 var app = builder.Build();
 
-// Check if the DB was migrated
+// DIRTY HACK, we WILL come back to fix this
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<MoviesContext>();
-var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-if (pendingMigrations.Any())
-    throw new Exception("Database is not fully migrated for MoviesContext.");
+context.Database.EnsureDeleted();
+context.Database.EnsureCreated();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
