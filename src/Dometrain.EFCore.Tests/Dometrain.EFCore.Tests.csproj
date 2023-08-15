@@ -28,4 +28,5 @@
       <ProjectReference Include="..\Dometrain.EFCore.SimpleAPI\Dometrain.EfCore.SimpleAPI.csproj" />
     </ItemGroup>
     
+    
 </Project>
