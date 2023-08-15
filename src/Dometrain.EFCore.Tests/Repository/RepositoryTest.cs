@@ -15,7 +15,9 @@ public class RepositoryTest
     public async Task IfGenreExists_ReturnsGenre()
     {
         // Arrange
-        var controller = new GenresWithRepositoryController(null);
+        var repository = Substitute.For<IGenreRepository>();
+        repository.Get(2)!.Returns(Task.FromResult(new Genre { Id = 2, Name = "Action" }));
+        var controller = new GenresWithRepositoryController(repository);
         
         // Act
         var response = await controller.Get(2);
@@ -25,5 +27,6 @@ public class RepositoryTest
         Assert.NotNull(okResult);
         Assert.Equal(200, okResult.StatusCode);
         Assert.Equal("Action", (okResult.Value as Genre)?.Name);
+        await repository.Received().Get(2);
     }
 }
