@@ -2,6 +2,7 @@ using Dometrain.EFCore.SimpleAPI.Controllers;
 using Dometrain.EFCore.SimpleAPI.Data;
 using Dometrain.EFCore.SimpleAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 
 namespace Dometrain.EFCore.Tests.FakeDbSet;
@@ -35,6 +36,14 @@ public class FakeDbSetTest
             new Genre { Id = 3, Name = "Comedy"}
         };
 
-        throw new NotImplementedException();
+        var context = Substitute.For<MoviesContext>();
+
+        var genresSet = genres.AsQueryable().BuildMockDbSet();
+
+        genresSet.FindAsync(2)!.Returns(new ValueTask<Genre>(genres.ElementAt(1)));
+
+        context.Genres.Returns(genresSet);
+
+        return context;
     }
 }
