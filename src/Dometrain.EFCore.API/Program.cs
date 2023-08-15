@@ -5,6 +5,12 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
 // Configure Serilog
 var serilog = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
@@ -13,23 +19,16 @@ var serilog = new LoggerConfiguration()
 // Configure it for Microsoft.Extensions.Logging
 builder.Services.AddSerilog(serilog);
 
-// Add services to the container.
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-});
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add a DbContext here
+// Add the DbContext
 builder.Services.AddDbContext<MoviesContext>(optionsBuilder =>
     {
         var connectionString = builder.Configuration.GetConnectionString("MoviesContext");
         optionsBuilder
-            .UseSqlServer(connectionString)
-            .LogTo(Console.WriteLine);
+            .UseSqlServer(connectionString);
     },
     ServiceLifetime.Scoped,
     ServiceLifetime.Singleton);
@@ -37,11 +36,13 @@ builder.Services.AddDbContext<MoviesContext>(optionsBuilder =>
 var app = builder.Build();
 
 // Check if the DB was migrated
-var scope = app.Services.CreateScope();
-var context = scope.ServiceProvider.GetRequiredService<MoviesContext>();
-var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-if (pendingMigrations.Any())
-    throw new Exception("Database is not fully migrated for MoviesContext.");
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<MoviesContext>();
+    var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+    if (pendingMigrations.Any())
+        throw new Exception("Database is not fully migrated for MoviesContext.");
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
