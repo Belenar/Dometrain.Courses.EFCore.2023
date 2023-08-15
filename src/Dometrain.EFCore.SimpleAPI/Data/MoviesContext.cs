@@ -6,6 +6,8 @@ namespace Dometrain.EFCore.SimpleAPI.Data;
 
 public class MoviesContext : DbContext
 {
+    public MoviesContext() { }
+    
     public MoviesContext(DbContextOptions<MoviesContext> options)
         :base(options)
     { }
