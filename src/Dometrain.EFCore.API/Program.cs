@@ -1,8 +1,17 @@
 using System.Text.Json.Serialization;
 using Dometrain.EFCore.API.Data;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+var serilog = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+// Configure it for Microsoft.Extensions.Logging
+builder.Services.AddSerilog(serilog);
 
 // Add services to the container.
 builder.Services.AddControllers()	
@@ -16,7 +25,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add a DbContext here
-builder.Services.AddDbContext<MoviesContext>();
+builder.Services.AddDbContext<MoviesContext>(optionsBuilder =>
+    {
+        var connectionString = builder.Configuration.GetConnectionString("MoviesContext");
+        optionsBuilder
+            .UseSqlServer(connectionString)
+            .LogTo(Console.WriteLine);
+    },
+    ServiceLifetime.Scoped,
+    ServiceLifetime.Singleton);
 
 var app = builder.Build();
 
