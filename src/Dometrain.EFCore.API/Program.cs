@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IGenreRepository, GenreRepository>();
 builder.Services.AddTransient<IBatchGenreService, BatchGenreService>();
+builder.Services.AddScoped<IMoviesContextManager, MoviesContextManager>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

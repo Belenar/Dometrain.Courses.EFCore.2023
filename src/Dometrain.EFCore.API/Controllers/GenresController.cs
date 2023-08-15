@@ -9,9 +9,9 @@ namespace Dometrain.EFCore.API.Controllers;
 public class GenresController : Controller
 {
     private readonly IGenreRepository _repository;
-    private readonly BatchGenreService _batchService;
+    private readonly IBatchGenreService _batchService;
 
-    public GenresController(IGenreRepository repository, BatchGenreService batchService)
+    public GenresController(IGenreRepository repository, IBatchGenreService batchService)
     {
         _repository = repository;
         _batchService = batchService;
@@ -45,7 +45,7 @@ public class GenresController : Controller
         return CreatedAtAction(nameof(Get), new { id = createdGenre.Id }, createdGenre);
     }
     
-    [HttpPost]
+    [HttpPost("batch")]
     [ProducesResponseType(typeof(IEnumerable<Genre>), StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateAll([FromBody] List<Genre> genres)
     {
