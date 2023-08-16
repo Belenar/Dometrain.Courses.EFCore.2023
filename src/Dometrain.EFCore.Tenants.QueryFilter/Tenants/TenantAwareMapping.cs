@@ -24,6 +24,8 @@ public abstract class TenantAwareMapping<TEntity> : IEntityTypeConfiguration<TEn
             .HasQueryFilter(entity =>
                 EF.Property<string>(entity, "TenantId") 
                 == _context.TenantId);
+        
+        ConfigureEntity(builder);
     }
 
     public abstract void ConfigureEntity(EntityTypeBuilder<TEntity> builder);
