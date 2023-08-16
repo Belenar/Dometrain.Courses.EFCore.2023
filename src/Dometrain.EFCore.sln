@@ -6,7 +6,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dometrain.EFCore.Tests", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dometrain.EfCore.SimpleAPI", "Dometrain.EFCore.SimpleAPI\Dometrain.EfCore.SimpleAPI.csproj", "{070B0931-939C-4B4A-A763-1CA52F9DACA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dometrain.EFCore.Tenants.QueryFilter", "Dometrain.EFCore.Tenants.QueryFilter\Dometrain.EFCore.Tenants.QueryFilter.csproj", "{AD774D12-B8B7-42AE-815A-1EA48AC5A830}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dometrain.EFCore.Tenants.QueryFilter", "Dometrain.EFCore.Tenants.QueryFilter\Dometrain.EFCore.Tenants.QueryFilter.csproj", "{39CA4B59-3C5A-4935-B243-6E3D6A2393D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dometrain.EFCore.Tenants.Databases", "Dometrain.EFCore.Tenants.Databases\Dometrain.EFCore.Tenants.Databases.csproj", "{5022453B-7CFF-4627-AFF5-D737A8C253E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,9 +28,13 @@ Global
 		{070B0931-939C-4B4A-A763-1CA52F9DACA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{070B0931-939C-4B4A-A763-1CA52F9DACA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{070B0931-939C-4B4A-A763-1CA52F9DACA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD774D12-B8B7-42AE-815A-1EA48AC5A830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD774D12-B8B7-42AE-815A-1EA48AC5A830}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD774D12-B8B7-42AE-815A-1EA48AC5A830}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD774D12-B8B7-42AE-815A-1EA48AC5A830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CA4B59-3C5A-4935-B243-6E3D6A2393D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CA4B59-3C5A-4935-B243-6E3D6A2393D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39CA4B59-3C5A-4935-B243-6E3D6A2393D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39CA4B59-3C5A-4935-B243-6E3D6A2393D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5022453B-7CFF-4627-AFF5-D737A8C253E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5022453B-7CFF-4627-AFF5-D737A8C253E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5022453B-7CFF-4627-AFF5-D737A8C253E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5022453B-7CFF-4627-AFF5-D737A8C253E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
