@@ -2,7 +2,6 @@ using Dometrain.EFCore.API.Data.ValueConverters;
 using Dometrain.EFCore.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dometrain.EFCore.API.Data.EntityMapping;
 
@@ -12,7 +11,7 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
     {
         builder
             .ToTable("Pictures")
-            .HasQueryFilter(movie => movie.ReleaseDate > new DateOnly(2000,1,1))
+            .HasQueryFilter(movie => movie.ReleaseDate > new DateOnly(1990,1,1))
             .HasKey(movie => movie.Identifier);
 
         builder.Property(movie => movie.Title)
@@ -40,5 +39,19 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         
         builder
             .OwnsMany(movie => movie.Actors);
+    }
+}
+
+public class CinemaMovieMapping : IEntityTypeConfiguration<CinemaMovie>
+{
+    public void Configure(EntityTypeBuilder<CinemaMovie> builder)
+    {
+    }
+}
+
+public class TelevisionMovieMapping : IEntityTypeConfiguration<TelevisionMovie>
+{
+    public void Configure(EntityTypeBuilder<TelevisionMovie> builder)
+    {
     }
 }
