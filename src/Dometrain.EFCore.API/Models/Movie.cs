@@ -10,8 +10,8 @@ public abstract class Movie
 
     public decimal InternetRating { get; set; }
     
-    public Person Director { get; set; }
-    public ICollection<Person> Actors { get; set; }
+    // public Person Director { get; set; }
+    // public ICollection<Person> Actors { get; set; }
 
     public Genre Genre { get; set; }
     public int MainGenreId { get; set; }

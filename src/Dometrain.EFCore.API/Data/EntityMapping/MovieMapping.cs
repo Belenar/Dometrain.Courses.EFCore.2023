@@ -33,12 +33,12 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
             .HasPrincipalKey(genre => genre.Id)
             .HasForeignKey(movie => movie.MainGenreId);
 
-        builder
-            .OwnsOne(movie => movie.Director)
-            .ToTable("Pictures_Directors"); 
-        
-        builder
-            .OwnsMany(movie => movie.Actors);
+        // builder
+        //     .OwnsOne(movie => movie.Director)
+        //     .ToTable("Pictures_Directors"); 
+        //
+        // builder
+        //     .OwnsMany(movie => movie.Actors);
     }
 }
 

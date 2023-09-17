@@ -19,4 +19,8 @@
     <ItemGroup>
       <Folder Include="Migrations\" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Migrations\20230910205511_RemoveOwnedTypes.cs" />
+      <Compile Remove="Migrations\20230910205511_RemoveOwnedTypes.Designer.cs" />
+    </ItemGroup>
 </Project>
