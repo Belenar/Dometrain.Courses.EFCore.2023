@@ -10,9 +10,10 @@ public class MoviesContext : DbContext
         : base (options)
     { }
     
+    public DbSet<Genre> Genres => Set<Genre>();
     public DbSet<Movie> Movies => Set<Movie>();
     public DbSet<ExternalInformation> ExternalInformations => Set<ExternalInformation>();
-    public DbSet<Genre> Genres => Set<Genre>();
+    public DbSet<Actor> Actors => Set<Actor>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,5 +22,6 @@ public class MoviesContext : DbContext
         modelBuilder.ApplyConfiguration(new CinemaMovieMapping());
         modelBuilder.ApplyConfiguration(new TelevisionMovieMapping());
         modelBuilder.ApplyConfiguration(new ExternalInformationMapping());
+        modelBuilder.ApplyConfiguration(new ActorMapping());
     }
 }
