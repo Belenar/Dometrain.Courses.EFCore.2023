@@ -9,9 +9,6 @@ public abstract class Movie
     public AgeRating AgeRating { get; set; }
 
     public decimal InternetRating { get; set; }
-    
-    // public Person Director { get; set; }
-    // public ICollection<Person> Actors { get; set; }
 
     public required Genre Genre { get; set; }
     public required string MainGenreName { get; set; }
