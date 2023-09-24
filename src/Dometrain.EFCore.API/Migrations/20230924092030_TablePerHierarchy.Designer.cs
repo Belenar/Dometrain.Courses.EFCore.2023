@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dometrain.EFCore.API.Migrations
 {
     [DbContext(typeof(MoviesContext))]
-    [Migration("20230923221024_InheritenceStarted")]
-    partial class InheritenceStarted
+    [Migration("20230924092030_TablePerHierarchy")]
+    partial class TablePerHierarchy
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

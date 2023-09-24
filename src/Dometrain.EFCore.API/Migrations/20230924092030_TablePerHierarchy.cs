@@ -5,7 +5,7 @@
 namespace Dometrain.EFCore.API.Migrations
 {
     /// <inheritdoc />
-    public partial class InheritenceStarted : Migration
+    public partial class TablePerHierarchy : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
