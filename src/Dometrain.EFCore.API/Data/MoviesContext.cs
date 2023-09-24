@@ -1,4 +1,5 @@
 using Dometrain.EFCore.API.Data.EntityMapping;
+using Dometrain.EFCore.API.Data.Interceptors;
 using Dometrain.EFCore.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,5 +29,10 @@ public class MoviesContext : DbContext
         modelBuilder.Entity<GenreName>()
             .HasNoKey()
             .ToSqlQuery($"SELECT Name FROM dbo.Genres");
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(new SaveChangesInterceptor());
     }
 }
