@@ -14,7 +14,7 @@ public abstract class Movie
     // public ICollection<Person> Actors { get; set; }
 
     public required Genre Genre { get; set; }
-    public int MainGenreId { get; set; }
+    public required string MainGenreName { get; set; }
 }
 
 public class CinemaMovie : Movie

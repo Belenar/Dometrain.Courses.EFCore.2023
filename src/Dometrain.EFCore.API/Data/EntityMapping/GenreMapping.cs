@@ -16,5 +16,7 @@ public class GenreMapping : IEntityTypeConfiguration<Genre>
         builder.Property(g => g.Name)
             .HasMaxLength(256)
             .HasColumnType("varchar");
+
+        builder.HasAlternateKey(g => g.Name);
     }
 }
