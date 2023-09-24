@@ -4,6 +4,7 @@ using Dometrain.EFCore.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dometrain.EFCore.API.Migrations
 {
     [DbContext(typeof(MoviesContext))]
-    partial class MoviesContextModelSnapshot : ModelSnapshot
+    [Migration("20230923221547_TablePerType")]
+    partial class TablePerType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,10 +57,6 @@ namespace Dometrain.EFCore.API.Migrations
                     b.Property<int>("AgeRating")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("InternetRating")
                         .HasColumnType("decimal(18,2)");
 
@@ -82,9 +81,7 @@ namespace Dometrain.EFCore.API.Migrations
 
                     b.ToTable("Pictures", (string)null);
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Movie");
-
-                    b.UseTphMappingStrategy();
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("Dometrain.EFCore.API.Models.CinemaMovie", b =>
@@ -94,7 +91,7 @@ namespace Dometrain.EFCore.API.Migrations
                     b.Property<decimal>("GrossRevenue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasDiscriminator().HasValue("CinemaMovie");
+                    b.ToTable("CinemaMovie", (string)null);
                 });
 
             modelBuilder.Entity("Dometrain.EFCore.API.Models.TelevisionMovie", b =>
@@ -105,7 +102,7 @@ namespace Dometrain.EFCore.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("TelevisionMovie");
+                    b.ToTable("TelevisionMovie", (string)null);
                 });
 
             modelBuilder.Entity("Dometrain.EFCore.API.Models.Movie", b =>
@@ -117,6 +114,24 @@ namespace Dometrain.EFCore.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Genre");
+                });
+
+            modelBuilder.Entity("Dometrain.EFCore.API.Models.CinemaMovie", b =>
+                {
+                    b.HasOne("Dometrain.EFCore.API.Models.Movie", null)
+                        .WithOne()
+                        .HasForeignKey("Dometrain.EFCore.API.Models.CinemaMovie", "Identifier")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Dometrain.EFCore.API.Models.TelevisionMovie", b =>
+                {
+                    b.HasOne("Dometrain.EFCore.API.Models.Movie", null)
+                        .WithOne()
+                        .HasForeignKey("Dometrain.EFCore.API.Models.TelevisionMovie", "Identifier")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dometrain.EFCore.API.Models.Genre", b =>

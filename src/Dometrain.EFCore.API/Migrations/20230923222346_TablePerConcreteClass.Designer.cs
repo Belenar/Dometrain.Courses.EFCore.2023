@@ -4,6 +4,7 @@ using Dometrain.EFCore.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dometrain.EFCore.API.Migrations
 {
     [DbContext(typeof(MoviesContext))]
-    partial class MoviesContextModelSnapshot : ModelSnapshot
+    [Migration("20230923222346_TablePerConcreteClass")]
+    partial class TablePerConcreteClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,8 @@ namespace Dometrain.EFCore.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.HasSequence("MovieSequence");
 
             modelBuilder.Entity("Dometrain.EFCore.API.Models.Genre", b =>
                 {
@@ -47,16 +52,13 @@ namespace Dometrain.EFCore.API.Migrations
                 {
                     b.Property<int>("Identifier")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR [MovieSequence]");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Identifier"));
+                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Identifier"));
 
                     b.Property<int>("AgeRating")
                         .HasColumnType("int");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("InternetRating")
                         .HasColumnType("decimal(18,2)");
@@ -80,11 +82,9 @@ namespace Dometrain.EFCore.API.Migrations
 
                     b.HasIndex("MainGenreId");
 
-                    b.ToTable("Pictures", (string)null);
+                    b.ToTable((string)null);
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Movie");
-
-                    b.UseTphMappingStrategy();
+                    b.UseTpcMappingStrategy();
                 });
 
             modelBuilder.Entity("Dometrain.EFCore.API.Models.CinemaMovie", b =>
@@ -94,7 +94,7 @@ namespace Dometrain.EFCore.API.Migrations
                     b.Property<decimal>("GrossRevenue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasDiscriminator().HasValue("CinemaMovie");
+                    b.ToTable("CinemaMovie");
                 });
 
             modelBuilder.Entity("Dometrain.EFCore.API.Models.TelevisionMovie", b =>
@@ -105,7 +105,7 @@ namespace Dometrain.EFCore.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("TelevisionMovie");
+                    b.ToTable("TelevisionMovie");
                 });
 
             modelBuilder.Entity("Dometrain.EFCore.API.Models.Movie", b =>
