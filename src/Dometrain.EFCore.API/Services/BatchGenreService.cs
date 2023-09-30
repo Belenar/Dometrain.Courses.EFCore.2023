@@ -37,6 +37,8 @@ public class BatchGenreService : IBatchGenreService
     {
         List<Genre> response = new ();
         _manager.StartUnitOfWork();
+
+        var existingGenres = await _repository.GetAll(genres.Select(g => g.Id));
         
         foreach (var genre in genres)
         {

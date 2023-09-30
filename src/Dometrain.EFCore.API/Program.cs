@@ -34,7 +34,8 @@ builder.Services.AddDbContext<MoviesContext>(optionsBuilder =>
     {
         var connectionString = builder.Configuration.GetConnectionString("MoviesContext");
         optionsBuilder
-            .UseSqlServer(connectionString)
+            .UseSqlServer(connectionString, sqlBuilder => 
+                sqlBuilder.MaxBatchSize(50))
             .LogTo(Console.WriteLine);
     },
     ServiceLifetime.Scoped,
