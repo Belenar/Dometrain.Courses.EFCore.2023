@@ -64,7 +64,7 @@ public class MoviesController : Controller
     
     [HttpGet("until-age/{ageRating}")]
     [ProducesResponseType(typeof(List<MovieTitle>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllUntilAge([FromRoute] AgeRating ageRating)
+    public IActionResult GetAllUntilAge([FromRoute] AgeRating ageRating)
     {
         var filteredTitles = CompiledQuery(_context, ageRating).ToList();
 
