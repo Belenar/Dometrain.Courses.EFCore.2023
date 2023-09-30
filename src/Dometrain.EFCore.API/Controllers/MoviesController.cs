@@ -19,7 +19,10 @@ public class MoviesController : Controller
     [ProducesResponseType(typeof(List<Movie>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll()
     {
-        var movies = await _context.Movies.ToListAsync();
+        var movies = await _context.Movies
+            .AsNoTracking()
+            .ToListAsync();
+        
         return Ok(movies);
     }
 
