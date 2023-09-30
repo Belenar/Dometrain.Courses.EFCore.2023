@@ -56,14 +56,17 @@ public class MoviesController : Controller
         return Ok(filteredTitles);
     }
     
+    private static readonly Func<MoviesContext, AgeRating, IEnumerable<MovieTitle>> CompiledQuery = 
+        EF.CompileQuery((MoviesContext context, AgeRating ageRating)
+        => context.Movies
+            .Where(movie => movie.AgeRating <= ageRating)
+            .Select(movie => new MovieTitle { Id = movie.Identifier, Title = movie.Title }));
+    
     [HttpGet("until-age/{ageRating}")]
     [ProducesResponseType(typeof(List<MovieTitle>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllUntilAge([FromRoute] AgeRating ageRating)
     {
-        var filteredTitles = await _context.Movies
-            .Where(movie => movie.AgeRating <= ageRating)
-            .Select(movie => new MovieTitle { Id = movie.Identifier, Title = movie.Title})
-            .ToListAsync();
+        var filteredTitles = CompiledQuery(_context, ageRating).ToList();
 
         return Ok(filteredTitles);
     }
