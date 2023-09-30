@@ -8,8 +8,9 @@ namespace Dometrain.EFCore.API.Data;
 public class MoviesContext : DbContext
 {
     public MoviesContext(DbContextOptions<MoviesContext> options)
-        : base (options)
-    { }
+        : base(options)
+    {
+    }
     
     public DbSet<Genre> Genres => Set<Genre>();
     public DbSet<Movie> Movies => Set<Movie>();

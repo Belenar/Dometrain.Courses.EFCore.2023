@@ -52,7 +52,7 @@ public class GenreRepository: IGenreRepository
         if (existingGenre is null)
             return null;
 
-        existingGenre.Name = genre.Name;
+        existingGenre.Description = genre.Description;
 
         if(!_manager.IsUnitOfWorkStarted)
             await _context.SaveChangesAsync();
