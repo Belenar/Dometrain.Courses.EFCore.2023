@@ -31,7 +31,8 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
             .HasConversion(new DateOnlyConverter());
 
         builder.Property(movie => movie.Synopsis)
-            .HasColumnType("varchar(max)")
+            .HasColumnType("varchar")
+            .HasMaxLength(4096)
             .HasColumnName("Plot");
 
         builder.Property(movie => movie.MainGenreName)
