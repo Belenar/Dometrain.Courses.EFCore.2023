@@ -52,7 +52,7 @@ public partial class Address
 
     public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; } = new List<CustomerAddress>();
 
-    public virtual ICollection<SalesOrderHeader> SalesOrderHeaderBillToAddresses { get; set; } = new List<SalesOrderHeader>();
+    public virtual ICollection<Order> SalesOrderHeaderBillToAddresses { get; set; } = new List<Order>();
 
-    public virtual ICollection<SalesOrderHeader> SalesOrderHeaderShipToAddresses { get; set; } = new List<SalesOrderHeader>();
+    public virtual ICollection<Order> SalesOrderHeaderShipToAddresses { get; set; } = new List<Order>();
 }

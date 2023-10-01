@@ -6,7 +6,7 @@ namespace Dometrain.EFCore.DatabaseFirst.Entities;
 /// <summary>
 /// General sales order information.
 /// </summary>
-public partial class SalesOrderHeader
+public partial class Order
 {
     /// <summary>
     /// Primary key.
@@ -122,7 +122,7 @@ public partial class SalesOrderHeader
 
     public virtual Customer Customer { get; set; } = null!;
 
-    public virtual ICollection<SalesOrderDetail> SalesOrderDetails { get; set; } = new List<SalesOrderDetail>();
+    public virtual ICollection<OrderLine> OrderLines { get; set; } = new List<OrderLine>();
 
     public virtual Address? ShipToAddress { get; set; }
 }

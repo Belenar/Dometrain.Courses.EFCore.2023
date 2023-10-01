@@ -32,9 +32,9 @@ public partial class AdventureWorksContext : DbContext
 
     public virtual DbSet<ProductModelProductDescription> ProductModelProductDescriptions { get; set; }
 
-    public virtual DbSet<SalesOrderDetail> SalesOrderDetails { get; set; }
+    public virtual DbSet<OrderLine> SalesOrderDetails { get; set; }
 
-    public virtual DbSet<SalesOrderHeader> SalesOrderHeaders { get; set; }
+    public virtual DbSet<Order> SalesOrderHeaders { get; set; }
 
     public virtual DbSet<VGetAllCategory> VGetAllCategories { get; set; }
 
@@ -123,6 +123,7 @@ public partial class AdventureWorksContext : DbContext
                 .HasColumnType("datetime");
             entity.Property(e => e.NameStyle).HasComment("0 = The data in FirstName and LastName are stored in western style (first name, last name) order.  1 = Eastern style (last name, first name) order.");
             entity.Property(e => e.OrderCount).HasDefaultValueSql("((0))");
+            entity.Property(e => e.TotalOrderAmount).HasDefaultValueSql("((0))");
             entity.Property(e => e.PasswordHash)
                 .HasMaxLength(128)
                 .IsUnicode(false)
@@ -368,7 +369,7 @@ public partial class AdventureWorksContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<SalesOrderDetail>(entity =>
+        modelBuilder.Entity<OrderLine>(entity =>
         {
             entity.HasKey(e => new { e.SalesOrderId, e.SalesOrderDetailId }).HasName("PK_SalesOrderDetail_SalesOrderID_SalesOrderDetailID");
 
@@ -416,10 +417,10 @@ public partial class AdventureWorksContext : DbContext
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.SalesOrder).WithMany(p => p.SalesOrderDetails).HasForeignKey(d => d.SalesOrderId);
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderLines).HasForeignKey(d => d.SalesOrderId);
         });
 
-        modelBuilder.Entity<SalesOrderHeader>(entity =>
+        modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.SalesOrderId).HasName("PK_SalesOrderHeader_SalesOrderID");
 

@@ -6,7 +6,7 @@ namespace Dometrain.EFCore.DatabaseFirst.Entities;
 /// <summary>
 /// Individual products associated with a specific sales order. See SalesOrderHeader.
 /// </summary>
-public partial class SalesOrderDetail
+public partial class OrderLine
 {
     /// <summary>
     /// Primary key. Foreign key to SalesOrderHeader.SalesOrderID.
@@ -55,5 +55,5 @@ public partial class SalesOrderDetail
 
     public virtual Product Product { get; set; } = null!;
 
-    public virtual SalesOrderHeader SalesOrder { get; set; } = null!;
+    public virtual Order Order { get; set; } = null!;
 }

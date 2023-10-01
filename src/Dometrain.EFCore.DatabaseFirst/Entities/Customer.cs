@@ -84,8 +84,10 @@ public partial class Customer
     public DateTime ModifiedDate { get; set; }
 
     public int? OrderCount { get; set; }
+    
+    public int? TotalOrderAmount { get; set; }
 
     public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; } = new List<CustomerAddress>();
 
-    public virtual ICollection<SalesOrderHeader> SalesOrderHeaders { get; set; } = new List<SalesOrderHeader>();
+    public virtual ICollection<Order> SalesOrderHeaders { get; set; } = new List<Order>();
 }
