@@ -9,6 +9,9 @@ public class Genre
     public string Description { get; set; }
 
     [JsonIgnore]
+    public byte[] ConcurrencyToken { get; set; } = new byte[0];
+
+    [JsonIgnore]
     public ICollection<Movie> Movies { get; set; } = new HashSet<Movie>();
 }
 
