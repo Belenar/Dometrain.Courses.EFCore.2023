@@ -122,6 +122,7 @@ public partial class AdventureWorksContext : DbContext
                 .HasComment("Date and time the record was last updated.")
                 .HasColumnType("datetime");
             entity.Property(e => e.NameStyle).HasComment("0 = The data in FirstName and LastName are stored in western style (first name, last name) order.  1 = Eastern style (last name, first name) order.");
+            entity.Property(e => e.OrderCount).HasDefaultValueSql("((0))");
             entity.Property(e => e.PasswordHash)
                 .HasMaxLength(128)
                 .IsUnicode(false)

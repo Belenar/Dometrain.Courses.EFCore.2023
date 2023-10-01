@@ -7,10 +7,9 @@ Console.WriteLine("Hello, World!");
 var context = new AdventureWorksContext();
 
 var query = context.Customers
-    .Where(c => c.FirstName.StartsWith("C"))
-    .Select(c => new { c.FirstName, c.LastName, c.SalesOrderHeaders.Count  });
+    .Where(c => c.FirstName.StartsWith("C"));
 
 foreach (var customer in query)
 {
-    Console.WriteLine($"{customer.FirstName} {customer.LastName} {customer.Count}");
+    Console.WriteLine($"{customer.FullName}");
 }
