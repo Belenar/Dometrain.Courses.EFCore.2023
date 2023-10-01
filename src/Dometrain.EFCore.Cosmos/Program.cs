@@ -38,15 +38,6 @@ builder.Services.AddDbContext<MoviesContext>(optionsBuilder =>
 
 var app = builder.Build();
 
-// Check if the DB was migrated
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<MoviesContext>();
-    var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-    if (pendingMigrations.Any())
-        throw new Exception("Database is not fully migrated for MoviesContext.");
-}
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
