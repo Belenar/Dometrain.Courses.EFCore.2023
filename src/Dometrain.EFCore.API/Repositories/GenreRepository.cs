@@ -88,7 +88,7 @@ public class GenreRepository: IGenreRepository
         return genres;
     }
 
-    public Task<IEnumerable<GenreName>> GetNames()
+    public async Task<IEnumerable<GenreName>> GetNames()
     {
         throw new NotImplementedException();
     }
