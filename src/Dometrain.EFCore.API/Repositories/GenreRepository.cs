@@ -16,10 +16,12 @@ public interface IGenreRepository
 public class GenreRepository: IGenreRepository
 {
     private readonly MoviesContext _context;
+    private readonly IUnitOfWorkManager _uowManager;
 
-    public GenreRepository(MoviesContext context)
+    public GenreRepository(MoviesContext context, IUnitOfWorkManager uowManager)
     {
         _context = context;
+        _uowManager = uowManager;
     }
 
     public async Task<IEnumerable<Genre>> GetAll()
@@ -36,7 +38,8 @@ public class GenreRepository: IGenreRepository
     {
         await _context.Genres.AddAsync(genre);
 
-        await _context.SaveChangesAsync();
+        if(!_uowManager.IsUnitOfWorkStarted)
+            await _context.SaveChangesAsync();
 
         return genre;
     }
@@ -50,7 +53,8 @@ public class GenreRepository: IGenreRepository
 
         existingGenre.Name = genre.Name;
 
-        await _context.SaveChangesAsync();
+        if(!_uowManager.IsUnitOfWorkStarted)
+            await _context.SaveChangesAsync();
 
         return existingGenre;
     }
@@ -64,7 +68,8 @@ public class GenreRepository: IGenreRepository
 
         _context.Genres.Remove(existingGenre);
 
-        await _context.SaveChangesAsync();
+        if(!_uowManager.IsUnitOfWorkStarted)
+            await _context.SaveChangesAsync();
 
         return true;
     }
