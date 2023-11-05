@@ -12,4 +12,19 @@ public class MoviesContext : DbContext
     
     public DbSet<Movie> Movies => Set<Movie>();
     public DbSet<Actor> Actors => Set<Actor>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Movie>()
+            .ToContainer("Movies");
+
+        modelBuilder.Entity<Movie>()
+            .OwnsOne(movie => movie.Genre);
+        
+        modelBuilder.Entity<Movie>()
+            .OwnsMany(movie => movie.Characters);
+        
+        modelBuilder.Entity<Actor>()
+            .ToContainer("Actors");
+    }
 }

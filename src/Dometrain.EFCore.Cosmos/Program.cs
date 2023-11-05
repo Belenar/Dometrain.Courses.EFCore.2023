@@ -28,9 +28,8 @@ builder.Services.AddDbContext<MoviesContext>(optionsBuilder =>
     {
         var connectionString = builder.Configuration.GetConnectionString("MoviesContext");
         optionsBuilder
-            .UseMySql(connectionString
-                , ServerVersion.AutoDetect(connectionString)
-                , sqlBuilder => sqlBuilder.MaxBatchSize(50))
+            .UseCosmos(connectionString!,
+                databaseName: "MoviesDB")
             .LogTo(Console.WriteLine);
     },
     ServiceLifetime.Scoped,

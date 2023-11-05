@@ -21,8 +21,13 @@ public class MoviesController : Controller
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         var movie = await _context.Movies
-            .Include(movie => movie.Genre)
             .SingleOrDefaultAsync(m => m.Id == id);
+
+        foreach (var role in movie.Characters)
+        {
+            var actor = _context.Actors.Find(role.ActorId);
+            role.Actor = actor;
+        }
         
         return movie == null
             ? NotFound()
