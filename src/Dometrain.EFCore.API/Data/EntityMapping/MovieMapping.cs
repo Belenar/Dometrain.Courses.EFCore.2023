@@ -20,8 +20,8 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
             .IsRequired();
 
         builder.Property(movie => movie.ReleaseDate)
-            .HasColumnType("date")
-            .HasConversion(new DateOnlyConverter());
+            .HasColumnType("char(8)")
+            .HasConversion(new DateTimeToChar8Converter());
 
         builder.Property(movie => movie.Synopsis)
             .HasColumnType("varchar(max)")
