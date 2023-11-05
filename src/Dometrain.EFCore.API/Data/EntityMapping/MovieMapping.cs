@@ -45,7 +45,7 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         {
             Identifier = 1,
             Title = "Fight Club",
-            ReleaseDate = new DateOnly(1999, 9, 10),
+            ReleaseDate = new DateTime(1999, 9, 10),
             Synopsis = "Ed Norton and Brad Pitt have a couple of fist fights with each other.",
             AgeRating = AgeRating.Adolescent,
             MainGenreId = 1
