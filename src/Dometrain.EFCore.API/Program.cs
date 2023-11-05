@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IGenreRepository, GenreRepository>();
 builder.Services.AddTransient<IBatchGenreService, BatchGenreService>();
+builder.Services.AddScoped<IUnitOfWorkManager, UnitOfWorkManager>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -22,7 +23,7 @@ var serilog = new LoggerConfiguration()
     .CreateLogger();
 
 // Configure it for Microsoft.Extensions.Logging
-builder.Services.AddSerilog(serilog);
+// builder.Services.AddSerilog(serilog);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -33,7 +34,8 @@ builder.Services.AddDbContext<MoviesContext>(optionsBuilder =>
     {
         var connectionString = builder.Configuration.GetConnectionString("MoviesContext");
         optionsBuilder
-            .UseSqlServer(connectionString);
+            .UseSqlServer(connectionString)
+            .LogTo(Console.WriteLine);
     },
     ServiceLifetime.Scoped,
     ServiceLifetime.Singleton);
