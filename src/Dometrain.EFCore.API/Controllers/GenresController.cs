@@ -45,7 +45,7 @@ public class GenresController : Controller
         return CreatedAtAction(nameof(Get), new { id = createdGenre.Id }, createdGenre);
     }
     
-    [HttpPost]
+    [HttpPost("batch")]
     [ProducesResponseType(typeof(IEnumerable<Genre>), StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateAll([FromBody] List<Genre> genres)
     {
