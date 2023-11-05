@@ -24,6 +24,13 @@ public class GenresController : Controller
         return Ok(await _repository.GetAll());
     }
     
+    [HttpGet("names")]
+    [ProducesResponseType(typeof(IEnumerable<GenreName>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetNames()
+    {
+        return Ok(await _repository.GetNames());
+    }
+    
     [HttpGet("from-query")]
     [ProducesResponseType(typeof(IEnumerable<Genre>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllFromQuery()
