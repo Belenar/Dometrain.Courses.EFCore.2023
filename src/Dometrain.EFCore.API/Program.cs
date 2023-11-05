@@ -1,13 +1,17 @@
 using System.Text.Json.Serialization;
 using Dometrain.EFCore.API.Data;
+using Dometrain.EfCore.API.Repositories;
+using Dometrain.EFCore.API.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
+builder.Services.AddTransient<IGenreRepository, GenreRepository>();
+builder.Services.AddTransient<IBatchGenreService, BatchGenreService>();
+
+builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
