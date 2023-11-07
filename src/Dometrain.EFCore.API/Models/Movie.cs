@@ -14,6 +14,8 @@ public abstract class Movie
     public required string MainGenreName { get; set; }
 
     public ExternalInformation? ExternalInformation { get; set; }
+
+    public List<Actor> Actors { get; set; } = new();
 }
 
 public class CinemaMovie : Movie
