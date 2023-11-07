@@ -422,3 +422,6 @@ FodyWeavers.xsd
 **/.idea/**/indexLayout.xml
 **/.idea/**/.name
 **/.idea/**/projectSettingsUpdater.xml
+
+**/.idea/**/vcs.xml
+**/.idea/**/.gitignore
