@@ -75,8 +75,15 @@ public class GenreRepository: IGenreRepository
         return true;
     }
 
-    public Task<IEnumerable<Genre>> GetAllFromQuery()
+    public async Task<IEnumerable<Genre>> GetAllFromQuery()
     {
-        throw new NotImplementedException();
+        var minimumGenreId = 2;
+
+        var genres = await _context.Genres
+            .FromSql($"SELECT * FROM [dbo].[Genres] WHERE ID >= {minimumGenreId}")
+            .Where(genre => genre.Name != "Comedy")
+            .ToListAsync();
+
+        return genres;
     }
 }

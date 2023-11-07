@@ -10,3 +10,8 @@ public class Genre
     [JsonIgnore]
     public ICollection<Movie> Movies { get; set; } = new HashSet<Movie>();
 }
+
+public class GenreName
+{
+    public required string Name { get; set; }
+}
