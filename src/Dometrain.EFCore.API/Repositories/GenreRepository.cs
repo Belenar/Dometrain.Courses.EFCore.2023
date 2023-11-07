@@ -12,6 +12,7 @@ public interface IGenreRepository
     Task<Genre?> Update(int id, Genre genre);
     Task<bool> Delete(int id);
     Task<IEnumerable<Genre>> GetAllFromQuery();
+    Task<IEnumerable<GenreName>> GetNames();
 }
 
 public class GenreRepository: IGenreRepository
@@ -85,5 +86,10 @@ public class GenreRepository: IGenreRepository
             .ToListAsync();
 
         return genres;
+    }
+
+    public async Task<IEnumerable<GenreName>> GetNames()
+    {
+        throw new NotImplementedException();
     }
 }
