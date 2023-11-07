@@ -8,6 +8,8 @@ public class Movie
     public string? Synopsis { get; set; }
     public AgeRating AgeRating { get; set; }
 
+    public decimal InternetRating { get; set; }
+    
     public Person Director { get; set; }
     public ICollection<Person> Actors { get; set; }
 
