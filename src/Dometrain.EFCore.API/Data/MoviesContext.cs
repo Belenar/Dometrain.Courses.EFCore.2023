@@ -11,6 +11,7 @@ public class MoviesContext : DbContext
     { }
     
     public DbSet<Movie> Movies => Set<Movie>();
+    public DbSet<ExternalInformation> ExternalInformations => Set<ExternalInformation>();
     public DbSet<Genre> Genres => Set<Genre>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -19,5 +20,6 @@ public class MoviesContext : DbContext
         modelBuilder.ApplyConfiguration(new MovieMapping());
         modelBuilder.ApplyConfiguration(new CinemaMovieMapping());
         modelBuilder.ApplyConfiguration(new TelevisionMovieMapping());
+        modelBuilder.ApplyConfiguration(new ExternalInformationMapping());
     }
 }
