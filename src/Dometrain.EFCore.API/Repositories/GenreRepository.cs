@@ -90,6 +90,10 @@ public class GenreRepository: IGenreRepository
 
     public async Task<IEnumerable<GenreName>> GetNames()
     {
-        throw new NotImplementedException();
+        var names = await _context.Database
+            .SqlQuery<GenreName>($"SELECT Name FROM dbo.Genres")
+            .ToListAsync();
+
+        return names;
     }
 }
